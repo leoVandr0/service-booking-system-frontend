@@ -1,0 +1,92 @@
+<div class="bg">
+  <div class="parent">
+    <div class="child">
+      <div nz-col>
+        <h1 class="title">Login</h1>
+      </div>
+
+      <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your email!">
+              <nz-input-group [nzPrefixIcon]="'user'">
+                <input type="text" nz-input formControlName="userName" placeholder="Email">
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your Password!">
+            <nz-input-group [nzPrefixIcon]="'lock'" >
+              <input nzPrefixIcon="lock" type="password" nz-input formControlName="password" placeholder="Password">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <button nz-button class="login-form-button" [nzType]="'primary'">
+              Log in
+            </button>
+
+            <div class="register-link">
+              Or <a routerLink="/register">register now!</a>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--<div class="bg">-->
+<!--  <div class="parent">-->
+<!--    <div class="child">-->
+<!--      <div nz-row class="imgDiv">-->
+<!--        <div nz-col nzSpan="24">-->
+<!--&lt;!&ndash;          <h1 style="margin-left: 100px;">Login</h1>&ndash;&gt;-->
+<!--          <h1 class="title">Login</h1>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">-->
+<!--        <nz-form-item>-->
+<!--          <nz-form-control nzErrorTip="Please input your email!">-->
+<!--            <nz-input-group nzPrefixIcon="user">-->
+<!--              <input type="text" nz-input formControlName="userName" placeholder="Email">-->
+<!--            </nz-input-group>-->
+<!--          </nz-form-control>-->
+<!--        </nz-form-item>-->
+
+<!--        <nz-form-item>-->
+<!--          <nz-form-control nzErrorTip="Please input your Password!">-->
+<!--            <nz-input-group nzPrefixIcon="lock">-->
+<!--              <input type="password" nz-input formControlName="password" placeholder="Password">-->
+<!--            </nz-input-group>-->
+<!--          </nz-form-control>-->
+<!--        </nz-form-item>-->
+
+
+<!--        <nz-form-item>-->
+<!--          <nz-form-control>-->
+<!--            <button nz-button class="login-form-button" [nzType]="'primary'">-->
+<!--              Log in-->
+<!--            </button>-->
+<!--          </nz-form-control>-->
+<!--        </nz-form-item>-->
+
+<!--        <div class="register-link">-->
+<!--          Or <a routerLink="/register">register now!</a>-->
+<!--        </div>-->
+
+
+
+<!--      </form>-->
+
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
