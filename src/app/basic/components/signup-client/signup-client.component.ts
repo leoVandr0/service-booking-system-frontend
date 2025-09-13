@@ -68,7 +68,7 @@ export class SignupClientComponent {
         let errorMessage = 'An unexpected error occurred';
         
         if (error.status === 0) {
-          errorMessage = 'Cannot connect to server. Please check if the backend is running on port 9002.';
+          errorMessage = 'Cannot connect to server. Please check if the backend is running on port 8080.';
         } else if (error.error && typeof error.error === 'string') {
           errorMessage = error.error;
         } else if (error.message) {
