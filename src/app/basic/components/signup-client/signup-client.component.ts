@@ -48,22 +48,40 @@ export class SignupClientComponent {
 
   submitForm(){
     console.log('Form Data:', this.validateForm.value);
+    console.log('API URL:', this.authService.signup_client_url);
 
-    this.authService.registerClient(this.validateForm.value).subscribe(res => {
-      this.notification
-        .success(
-          'SUCCESS',
-          `Signup client created successfully.`,
-          {nzDuration: 5000}
-        );
-      this.router.navigateByUrl('/login');
-    }, error => {
-      this.notification
-        .error(
-          'ERROR',
-          `${error.error}`,
-          {nzDuration: 5000}
-        )
+    this.authService.registerClient(this.validateForm.value).subscribe({
+      next: (res) => {
+        this.notification
+          .success(
+            'SUCCESS',
+            `Signup client created successfully.`,
+            {nzDuration: 5000}
+          );
+        this.router.navigateByUrl('/login');
+      },
+      error: (error) => {
+        console.error('Full error object:', error);
+        console.error('Error status:', error.status);
+        console.error('Error message:', error.message);
+        
+        let errorMessage = 'An unexpected error occurred';
+        
+        if (error.status === 0) {
+          errorMessage = 'Cannot connect to server. Please check if the backend is running on port 9002.';
+        } else if (error.error && typeof error.error === 'string') {
+          errorMessage = error.error;
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+        
+        this.notification
+          .error(
+            'ERROR',
+            errorMessage,
+            {nzDuration: 5000}
+          );
+      }
     });
   }
 
