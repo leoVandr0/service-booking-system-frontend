@@ -9,13 +9,13 @@ import {UserStorageService} from '../../basic/services/storage/user-storage.serv
 })
 export class CompanyService {
 
-  private baseUrl = environment.baseHref;
-  get_ad_company_url = environment.baseHref + environment.get_ad_company_url;
-  get_ads_company_url = environment.baseHref + environment.get_ads_company_url;
-  put_ad_company_url = environment.baseHref + environment.put_ad_company_url;
-  delete_ad_company_url = environment.baseHref + environment.delete_ad_company_url;
-  bookings_company_url = environment.baseHref + environment.bookings_company_url;
-  booking_company_url = environment.baseHref + environment.booking_company_url;
+  private baseUrl = (window as any).__env?.apiUrl || environment.baseHref;
+  get_ad_company_url = this.baseUrl + environment.get_ad_company_url;
+  get_ads_company_url = this.baseUrl + environment.get_ads_company_url;
+  put_ad_company_url = this.baseUrl + environment.put_ad_company_url;
+  delete_ad_company_url = this.baseUrl + environment.delete_ad_company_url;
+  bookings_company_url = this.baseUrl + environment.bookings_company_url;
+  booking_company_url = this.baseUrl + environment.booking_company_url;
 
 
 
@@ -98,17 +98,3 @@ export class CompanyService {
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
