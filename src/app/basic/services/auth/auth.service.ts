@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {map, Observable} from 'rxjs';
 import {UserStorageService} from '../storage/user-storage.service';
@@ -53,19 +53,20 @@ export class AuthService {
   login(username: string, password: string): Observable<any> {
     const data ={ username, password}
     const url = `${this.authenticate_url}`;
-    return this.http.post<any>(url, data, {observe: 'response'})
+    // Backend returns JSON as a string; request text and parse
+    return this.http.post(url, data, { responseType: 'text' })
       .pipe(
-        map((res: HttpResponse<any>) => {
-          console.log(res.body);
-          this.userStorageService.saveUser(res.body);
-
-          const tokenLength = res.headers.get(AUTH_HEADER)?.length;
-          const bearerToken= res.headers.get(AUTH_HEADER)?.substring(7, tokenLength);
-
-          console.log(bearerToken);
-          this.userStorageService.saveToken(bearerToken);
-
-          return res;
+        map((resText: string) => {
+          let body: any = {};
+          try { body = JSON.parse(resText); } catch {}
+          if (body) {
+            this.userStorageService.saveUser(body);
+            const token = body.token;
+            if (token) {
+              this.userStorageService.saveToken(token);
+            }
+          }
+          return body;
         })
       );
   }
