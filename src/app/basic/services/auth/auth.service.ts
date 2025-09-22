@@ -1,9 +1,8 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {map, Observable} from 'rxjs';
 import {UserStorageService} from '../storage/user-storage.service';
-import { ENV, EnvConfig } from '../../../core/env.token';
 
 export const AUTH_HEADER = 'authorization';
 
@@ -12,18 +11,13 @@ export const AUTH_HEADER = 'authorization';
 })
 export class AuthService {
 
-  private baseUrl: string;
-  signup_client_url: string;
-  signup_company_url: string;
-  authenticate_url: string;
+  private baseUrl: string = environment.apiUrl || environment.baseHref;
+  signup_client_url: string = this.baseUrl + environment.signup_client_url;
+  signup_company_url: string = this.baseUrl + environment.signup_company_url;
+  authenticate_url: string = this.baseUrl + environment.authenticate_url;
 
   constructor(private http: HttpClient,
-              private userStorageService: UserStorageService,
-              @Inject(ENV) private env: EnvConfig) {
-    this.baseUrl = this.env.apiUrl;
-    this.signup_client_url = this.baseUrl + environment.signup_client_url;
-    this.signup_company_url = this.baseUrl + environment.signup_company_url;
-    this.authenticate_url = this.baseUrl + environment.authenticate_url;
+              private userStorageService: UserStorageService) {
   }
 
   registerClient(signupRequestDTO: any): Observable<any> {

@@ -1,33 +1,23 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {environment} from '../../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {UserStorageService} from '../../../basic/services/storage/user-storage.service';
-import { ENV, EnvConfig } from '../../../core/env.token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
 
-  private baseUrl: string;
-  get_all_ads_url: string;
-  search_ad_url: string;
-  book_service_url: string;
-  get_ad_url: string;
-  my_bookings_url: string;
-  review_client_url: string;
+  private baseUrl: string = environment.apiUrl || environment.baseHref;
+  get_all_ads_url: string = this.baseUrl + environment.get_all_ads_url;
+  search_ad_url: string = this.baseUrl + environment.search_ad_url;
+  book_service_url: string = this.baseUrl + environment.book_service_url;
+  get_ad_url: string = this.baseUrl + environment.get_ad_url;
+  my_bookings_url: string = this.baseUrl + environment.my_bookings_url;
+  review_client_url: string = this.baseUrl + environment.review_client_url;
 
-  constructor(private http: HttpClient,
-              @Inject(ENV) private env: EnvConfig) {
-    this.baseUrl = this.env.apiUrl;
-    this.get_all_ads_url = this.baseUrl + environment.get_all_ads_url;
-    this.search_ad_url = this.baseUrl + environment.search_ad_url;
-    this.book_service_url = this.baseUrl + environment.book_service_url;
-    this.get_ad_url = this.baseUrl + environment.get_ad_url;
-    this.my_bookings_url = this.baseUrl + environment.my_bookings_url;
-    this.review_client_url = this.baseUrl + environment.review_client_url;
-  }
+  constructor(private http: HttpClient) { }
 
   getAllAds(): Observable<any> {
     const url = `${this.get_all_ads_url}`;

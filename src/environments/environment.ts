@@ -2,6 +2,7 @@ export const environment = {
   production: true,
 
   baseHref: 'https://service-booking-system-backend-production.up.railway.app/api/v1',
+  apiUrl: 'https://service-booking-system-backend-production.up.railway.app/api/v1',
   authenticate_url: '/authenticate',
   company_url: '/company',
 

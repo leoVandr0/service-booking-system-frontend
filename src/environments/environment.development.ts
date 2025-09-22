@@ -2,6 +2,7 @@ export const environment = {
   production: false,
 
   baseHref: 'http://localhost:8080/api/v1',
+  apiUrl: 'http://localhost:8080/api/v1',
   authenticate_url: '/authenticate',
   company_url: '/company',
 
