@@ -25,7 +25,16 @@ export class CompanyService {
     const userId = UserStorageService.getUserId();
 
     const url = `${this.get_ad_company_url}/${userId}`;
-    return this.http.post<any>(url, adDTO, {
+
+    // Build multipart/form-data body expected by @ModelAttribute AdDTO
+    const formData = new FormData();
+    if (adDTO?.serviceName !== undefined) formData.append('serviceName', adDTO.serviceName);
+    if (adDTO?.description !== undefined) formData.append('description', adDTO.description);
+    if (adDTO?.price !== undefined) formData.append('price', String(adDTO.price));
+    if (adDTO?.img instanceof File) formData.append('img', adDTO.img as File);
+
+    // Do NOT set Content-Type; browser will add correct multipart boundary
+    return this.http.post<any>(url, formData, {
       headers: this.createAuthorizationHeader()
     })
   }
@@ -56,7 +65,14 @@ export class CompanyService {
 
   updateAdById(adId: any, adDTO: any): Observable<any> {
     const url = `${this.put_ad_company_url}/${adId}`;
-    return this.http.put<any>(url, adDTO, {
+
+    const formData = new FormData();
+    if (adDTO?.serviceName !== undefined) formData.append('serviceName', adDTO.serviceName);
+    if (adDTO?.description !== undefined) formData.append('description', adDTO.description);
+    if (adDTO?.price !== undefined) formData.append('price', String(adDTO.price));
+    if (adDTO?.img instanceof File) formData.append('img', adDTO.img as File);
+
+    return this.http.put<any>(url, formData, {
       headers: this.createAuthorizationHeader()
     })
   }
